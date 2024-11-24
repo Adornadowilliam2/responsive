@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Force Landscape</title>
+    <style>
+      /* General styles for body */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f0f0;
+      }
+
+      /* Landscape message display */
+      .landscape-message {
+        text-align: center;
+        font-size: 24px;
+        color: #333;
+        display: none;
+      }
+
+      .landscape-message.active {
+        display: block;
+      }
+
+      /* Landscape view styling for page content */
+      .landscape-view {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      /* Styles to "force" landscape experience */
+      .portrait-mode {
+        transform: rotate(90deg);
+        transform-origin: center center;
+        width: 100vh;
+        height: 100vw;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- A container with the actual page content -->
+    <div id="content" class="landscape-view">
+      <h1>Welcome to the Landscape-only Experience!</h1>
+      <p>Rotate your device to landscape mode for a better experience.</p>
+    </div>
+
+    <!-- Message for portrait mode -->
+    <div id="message" class="landscape-message">
+      Please rotate your device to landscape mode.
+    </div>
+
+    <script>
+      function checkOrientation() {
+        const content = document.getElementById("content");
+        const message = document.getElementById("message");
+
+        // Check if the device is in portrait mode
+        if (window.innerHeight > window.innerWidth) {
+          // Show the landscape message
+          message.classList.add("active");
+          // Apply a forced landscape layout by rotating the content
+          content.classList.add("portrait-mode");
+        } else {
+          // Hide the message and remove forced landscape
+          message.classList.remove("active");
+          content.classList.remove("portrait-mode");
+        }
+      }
+
+      // Run the check on page load
+      window.onload = checkOrientation;
+
+      // Run the check when the window is resized or rotated
+      window.addEventListener("resize", checkOrientation);
+    </script>
+  </body>
+</html>
